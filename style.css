@@ -1,0 +1,211 @@
+/* The embedding app owns the theme, not the operating system: it sets
+   color-scheme on the root, and every token below resolves through
+   light-dark(). Standing alone, the pair leaves the choice to the OS.
+   Never add a prefers-color-scheme rule — it would ignore the app. */
+:root {
+  color-scheme: light dark;
+
+  --surface: light-dark(#ffffff, #111111);
+  --ink: light-dark(#111111, #ffffff);
+  --muted: light-dark(#717171, #b8b8b8);
+  --grid: light-dark(#eaeaea, #2f2f2f);
+  --axis: light-dark(#b8b8b8, #474747);
+  --halo: light-dark(#ffffff, #111111);
+  --tooltip-surface: #333333;
+  --tooltip-ink: #ffffff;
+
+  --categorical-1: #fc6b22;
+  --categorical-2: light-dark(#212431, #ebebeb);
+  --categorical-3: #283dff;
+  --categorical-4: light-dark(#e6d429, #ede557);
+  --categorical-5: #43a178;
+  --categorical-6: #b3d5ea;
+
+  --sequential-1: light-dark(#fc6b22, #ff893f);
+  --sequential-2: light-dark(#ff893f, #fc6b22);
+  --sequential-3: light-dark(#ffa962, #f54500);
+  --sequential-4: light-dark(#ffc782, #c54200);
+  --sequential-5: light-dark(#ffe1b9, #a32000);
+  --sequential-6: light-dark(#fff4e3, #720000);
+
+  --secondary-1: light-dark(#283dff, #4154ff);
+  --secondary-2: light-dark(#4154ff, #283dff);
+  --secondary-3: light-dark(#6b8eff, #2425e6);
+  --secondary-4: light-dark(#9cb6ff, #2124ab);
+  --secondary-5: light-dark(#c2d4ff, #181e98);
+  --secondary-6: light-dark(#dde8ff, #161750);
+
+  --diverging-1: #fc6b22;
+  --diverging-2: light-dark(#f6cba4, #6e421c);
+  --diverging-3: light-dark(#fae0c9, #3c2816);
+  --diverging-4: light-dark(#d1d6fa, #171c3a);
+  --diverging-5: light-dark(#a8b2f6, #1f2b6e);
+  --diverging-6: #283dff;
+
+  /* Steps 2–5 of the diverging ramp are hatched rather than flat, and
+     these are the two halves of that hatch: a stroke that holds still
+     across themes, over a ground that does not. Each step's stroke and
+     ground average out to its flat token above, which is why a legend
+     swatch can use the token while the mark uses the pattern. */
+  --diverging-stroke-warm: #ff9830;
+  --diverging-stroke-cool: #3957ff;
+  --diverging-ground-warm: light-dark(#f1e3dc, #281912);
+  --diverging-ground-cool: light-dark(#dddff1, #131528);
+
+  --hashed-1: #fc6b22;
+  --hashed-2: light-dark(#f1b18e, #813f1a);
+  --hashed-3: light-dark(#fed7bb, #63391a);
+}
+
+/* The app owns the ground the artifact sits on: no page background and no
+   outer margin, so the chart draws to the edges of the frame. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--ink);
+}
+
+.artifact-error {
+  padding: 12px 0;
+  color: #a32222;
+  font-size: 13px;
+  white-space: pre-wrap;
+}
+
+.chart {
+  position: relative;
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Tick labels are mono; axis titles are sans. */
+.axis text {
+  font-family: var(--family-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  fill: var(--muted);
+}
+
+.axis .domain {
+  stroke: var(--axis);
+}
+
+.axis line {
+  stroke: var(--axis);
+}
+
+.grid line {
+  stroke: var(--grid);
+}
+
+.grid .domain {
+  display: none;
+}
+
+.axis-title {
+  font-size: 13px;
+  fill: var(--ink);
+}
+
+.value {
+  font-family: var(--family-mono);
+  font-size: 11px;
+  fill: var(--ink);
+}
+
+.mark:hover {
+  stroke: var(--halo);
+  stroke-width: 3px;
+}
+
+/* Legend drawn inside the SVG, so it scales with the chart. */
+.key text {
+  font-size: 13px;
+  fill: var(--ink);
+}
+
+/* Source and methodology lines beneath the chart. */
+.note {
+  margin-top: 16px;
+  color: var(--muted);
+  font-family: var(--family-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--tooltip-surface);
+  color: var(--tooltip-ink);
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.tooltip strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.placeholder {
+  font-family: var(--family-mono);
+  font-size: 12px;
+  fill: var(--muted);
+}
+
+/* Hashed palette steps 2 and 3, referenced as fill="url(#hashed-2)".
+   The hatch is the same orange as step 1 over the page background; the
+   steps differ only in line density, which is set on the patterns. */
+#hashed-2 rect,
+#hashed-3 rect {
+  fill: var(--surface);
+}
+
+#hashed-2 line,
+#hashed-3 line {
+  stroke: var(--hashed-1);
+}
+
+/* Diverging steps 2–5, referenced as fill="url(#diverging-2)". The two
+   steps either side of the midpoint are drawn over the page so they read
+   as the palest; steps 2 and 5 sit on a tinted ground at twice the line
+   density, which is what separates them from their neighbours without
+   introducing a second hue. */
+#diverging-2 rect {
+  fill: var(--diverging-ground-warm);
+}
+
+#diverging-5 rect {
+  fill: var(--diverging-ground-cool);
+}
+
+#diverging-3 rect,
+#diverging-4 rect {
+  fill: var(--surface);
+}
+
+#diverging-2 line,
+#diverging-3 line {
+  stroke: var(--diverging-stroke-warm);
+}
+
+#diverging-4 line,
+#diverging-5 line {
+  stroke: var(--diverging-stroke-cool);
+}
+
+.axis.categories text {
+  text-transform: uppercase;
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chart</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <svg width="0" height="0" aria-hidden="true">
+      <defs>
+        <pattern
+          id="hashed-2"
+          width="5"
+          height="5"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="5" height="5" />
+          <line x1="1.5" y1="0" x2="1.5" y2="5" stroke-width="3" />
+        </pattern>
+        <pattern
+          id="hashed-3"
+          width="6"
+          height="6"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="6" height="6" />
+          <line x1="0.75" y1="0" x2="0.75" y2="6" stroke-width="1.5" />
+        </pattern>
+        <pattern
+          id="diverging-2"
+          width="3"
+          height="3"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="3" height="3" />
+          <line x1="0.5" y1="0" x2="0.5" y2="3" stroke-width="1" />
+        </pattern>
+        <pattern
+          id="diverging-3"
+          width="5"
+          height="5"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="5" height="5" />
+          <line x1="0.5" y1="0" x2="0.5" y2="5" stroke-width="1.3" />
+        </pattern>
+        <pattern
+          id="diverging-4"
+          width="5"
+          height="5"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="5" height="5" />
+          <line x1="0.5" y1="0" x2="0.5" y2="5" stroke-width="1.3" />
+        </pattern>
+        <pattern
+          id="diverging-5"
+          width="3"
+          height="3"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <rect width="3" height="3" />
+          <line x1="0.5" y1="0" x2="0.5" y2="3" stroke-width="1" />
+        </pattern>
+      </defs>
+    </svg>
+    <div id="chart" class="chart"></div>
+    <script type="module" src="./chart.js"></script>
+  </body>
+</html>
